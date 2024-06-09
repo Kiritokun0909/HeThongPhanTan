@@ -61,7 +61,7 @@ class ReadServer extends Thread {
         this.listClient = listClient;
     }
 
-    //nếu có client yêu cầu xem danh sách vé thì vào hàm này
+    // trả về danh sach ve cho client
     public List<Ticket> DanhSachVe() throws SQLException {
         List<Ticket> listTicket = new ArrayList<>();
         Connection connection = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
@@ -118,26 +118,27 @@ class ReadServer extends Thread {
         int rowUpdate = statement.executeUpdate(stringQuery);
         return rowUpdate;
     }
+    
     @Override
     public void run() {
-        //lấy dữ liệu gửi về
-
+        // lấy dữ liệu được gửi từ client
         DataInputStream dataInputStream = null; // ban đầu dữ liệu gửi về là null
         try {
             dataInputStream = new DataInputStream(socket.getInputStream());
             String message = dataInputStream.readUTF();
             System.out.println("Client " + socket.getInetAddress().getHostAddress() + " đã gửi yêu cầu " + message);
-            if (message.contains("xemve")) { // testok
+            if (message.contains("xemve")) {
                 // gửi dữ liệu về client
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataOutputStream.writeUTF(DanhSachVe().toString()); // gửi dữ liệu về cho client đó
-
-            } else if (message.contains("capnhat")) {
+            } 
+            else if (message.contains("capnhat")) {
                 // gửi dữ liệu về client
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 this.event.setListTicket(DanhSachVe());
                 dataOutputStream.writeUTF(this.event.getListTicket().toString()); // gửi dữ liệu về cho client đó
-            } else if (message.contains("huyve")) {// chuỗi gửi về phải có dạng huyve usernam soghe // testok
+            } 
+            else if (message.contains("huyve")) {// chuỗi gửi về phải có dạng huyve usernam soghe
                 String[] s = message.split(" "); // chuỗi login gửi về có dạng huyve usernam soghe -> tach thanh ['huyve', 'username', 'soghe']
                 String userName = s[1];
                 int soGhe = Integer.parseInt(s[2]);
@@ -160,7 +161,7 @@ class ReadServer extends Thread {
                 String username2 ="";
                 for (Map<Account, Integer> m : task) {
                     for (Map.Entry<Account, Integer> entry : m.entrySet()) {
-//                            System.out.println(entry.getKey().getUserName() + " đã chọn vé " + entry.getValue());
+                        // System.out.println(entry.getKey().getUserName() + " đã chọn vé " + entry.getValue());
                         if (entry.getValue() == soGhe) {
                             d = 1; // nếu đã tồn tại 1 người đặt vé đó thì trả về là phải đợi
                             this.event.setTicketOfList(soGhe, false, entry.getKey().getUserName());
@@ -170,12 +171,12 @@ class ReadServer extends Thread {
                     if(d == 1) break;
                 }
                 int dl = 0;
-                if (d == 0) {
+                if (d == 0) {   //Trao vé mua cho người đầu tiên đang chờ đặt ghế này
                     this.event.itemRequest(new Ticket(soGhe, false, null), new Account(userName, null), 0);
                     this.event.setTicketOfList(soGhe, false, null);
                     dl = blockTicket("NULL", soGhe);
                 }
-                else {
+                else {  //Reset ghế này khi không ai chọn
                     this.event.resetSelect(soGhe, userName, username2);
                     dl = blockTicket(username2, soGhe);
                 }
@@ -183,7 +184,8 @@ class ReadServer extends Thread {
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 String s1 = "Bạn đã hủy vé " + soGhe;
                 dataOutputStream.writeUTF(s1); // gửi dữ liệu về cho client đó
-            } else if (message.contains("chonve")) { // user chọn vé thì cho vào queue // testok
+            } 
+            else if (message.contains("chonve")) { // user chọn vé thì cho vào queue // testok
                 // chuỗi chọn vé gửi về có dạng chonve username soghe (lưu ý mỗi lần 1 lưu 1 ghế)
                 String[] tmp = message.split(" "); //tách chuỗi gửi về thành ['chonve', 'username', 'soghe']
                 //lúc này chỉ cần add vào queue để xử lí nếu người dùng yêu cầu đặt vé
@@ -219,9 +221,9 @@ class ReadServer extends Thread {
                     String s = soGhe + ", 2";
                     dataOutputStream.writeUTF(s); // gửi dữ liệu về cho client đó
                 }
-
-            } else if (message.contains("datve")) {//chuỗi gửi về phải có dạng datve username soghe //testok
-                String[] tmp = message.split(" "); //->tách thành ['datve', 'username', 'soghe']
+            } 
+            else if (message.contains("datve")) {// chuỗi gửi về phải có dạng datve username soghe
+                String[] tmp = message.split(" "); // tách chuỗi thành ['datve', 'username', 'soghe']
                 String userName = tmp[1];
                 int soGhe = Integer.parseInt(tmp[2]);
                 int d = 0;
@@ -258,7 +260,7 @@ class ReadServer extends Thread {
                         }
                     }
                 }
-                // Phần này xóa các người dùng đang chờ đặt cùng 1 vé với người đã đặt thành công
+                // Xóa các client đang chờ của ghế đã được đặt thành công
                 if (d == 1) {
                     Iterator<Map<Account, Integer>> iterator = task.iterator();
                     while (iterator.hasNext()) {
@@ -275,8 +277,10 @@ class ReadServer extends Thread {
                         }
                     }
                 }
-            } else if (message.contains("login")) { // testok
-                String[] account = message.split(" "); // chuỗi login gửi về có dạng login username pass -> tach thanh ['login', 'username', 'pass']
+            } 
+            else if (message.contains("login")) {
+                // chuỗi login gửi về có dạng login username pass -> tach thanh ['login', 'username', 'pass']
+                String[] account = message.split(" ");
                 String userName = account[1];
                 String pass = account[2];
                 int check;
@@ -287,7 +291,8 @@ class ReadServer extends Thread {
                 }
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataOutputStream.writeUTF(String.valueOf(check)); // gửi dữ liệu về cho client đó
-            } else if (message.contains("ngatketnoi")) { // test ok
+            } 
+            else if (message.contains("ngatketnoi")) {
                 System.out.println("Client " + socket.getInetAddress().getHostAddress() + "  đã ngắt kết nối");
                 for (Socket socket1 : listClient) {
                     if (socket1.getInetAddress().getHostAddress().equals(socket.getInetAddress().getHostAddress())) {

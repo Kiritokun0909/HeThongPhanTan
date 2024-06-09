@@ -4,10 +4,7 @@
  */
 package model;
 
-/**
- *
- * @author Pham Duc Loi
- */
+
 public class Ticket {
     private int id;
     private boolean sold;

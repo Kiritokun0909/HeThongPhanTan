@@ -48,7 +48,7 @@ public class Main extends javax.swing.JFrame {
         home = new FormHome();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(home);
-//        home.setVisible(true);
+        // home.setVisible(true);
         testData();
     }
     
@@ -60,7 +60,7 @@ public class Main extends javax.swing.JFrame {
                     String output = "";
                     try {
                         Socket socket = new Socket(ipAddress, port);
-                         // khởi tạo socketclinet
+                        // khởi tạo socketclinet
                         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         dataOutputStream.writeUTF(input);
                         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -73,13 +73,13 @@ public class Main extends javax.swing.JFrame {
                     String[] lout = output.split(", ");
                     int check = Integer.parseInt(lout[1]);
                     home.setSelected(com, tk, check);
-
-                }else {
+                }
+                else {
                     String input = "huyve "+ acc.getUserName() + " " + String.valueOf(tk.getId());
                     String output = "";
                     try {
                         Socket socket = new Socket(ipAddress, port);
-                         // khởi tạo socketclinet
+                        // khởi tạo socketclinet
                         DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         dataOutputStream.writeUTF(input);
                         DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -91,27 +91,7 @@ public class Main extends javax.swing.JFrame {
                     System.out.println(output);
                     home.setSelected(com, tk, 0);
                 }
-                
-                
-                
             }
-            
-//            public void itemClickDelete(Component com, Ticket tk) {
-//                String input = "huyve "+ acc.getUserName() + " " + String.valueOf(tk.getId());
-//                String output = "";
-//                try {
-//                    Socket socket = new Socket(ipAddress, port);
-//                     // khởi tạo socketclinet
-//                    DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-//                    dataOutputStream.writeUTF(input);
-//                    DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-//                    output = dataInputStream.readUTF();
-//                } catch (IOException e) {
-//                    System.err.println("Error connecting to server: " + e.getMessage());
-//                }
-//                
-//                System.out.println(output);
-//            }
 
             @Override
             public void itemListCLick(Component com) {
@@ -120,7 +100,7 @@ public class Main extends javax.swing.JFrame {
                 String output = "";
                 try {
                     Socket socket = new Socket(ipAddress, port);
-                     // khởi tạo socketclinet
+                    // khởi tạo socketclinet
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataOutputStream.writeUTF(input);
                     DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -138,7 +118,7 @@ public class Main extends javax.swing.JFrame {
                 String output = "";
                 try {
                     Socket socket = new Socket(ipAddress, port);
-                     // khởi tạo socketclinet
+                    // khởi tạo socketclinet
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataOutputStream.writeUTF(input);
                     DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -229,6 +209,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
+        setPreferredSize(new java.awt.Dimension(1355, 701));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

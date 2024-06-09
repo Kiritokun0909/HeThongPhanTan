@@ -32,14 +32,14 @@ public class Main extends javax.swing.JFrame {
     private ArrayList<Map<Account, Integer>> task;
     private List<Ticket> listTK;
     private FormHome home;
-    public Main(int port)  {
+    
+    public Main(int port){
         initComponents();
         this.port = port;
         this.listClient = new ArrayList<>();
         this.task = new ArrayList<>();
         setBackground(new Color(0, 0, 0));
-        init();  
-        
+        init();
     }
     
     private void init(){
@@ -55,14 +55,11 @@ public class Main extends javax.swing.JFrame {
         }
 
         testData(readServer);
-        
-  
-        
     }
     
     public void excute() throws IOException, SQLException {
         ServerSocket server = new ServerSocket(port);
-        System.out.println("server start");
+        System.out.println("start server");
         while (true) {
             Socket socket = server.accept();
             // lấy danh sách client để hiển thị trên server
@@ -80,12 +77,14 @@ public class Main extends javax.swing.JFrame {
                     home.addIP(socket.getInetAddress().getHostAddress(), 1);
                     System.out.println("Server đã kết nối với client: " + socket.getInetAddress().getHostAddress());
                 }
-            } else {
+            } 
+            else {
                 // Khởi tạo danh sách nếu nó chưa được khởi tạo
                 listClient.add(socket);
                 home.addIP(socket.getInetAddress().getHostAddress(), 1);
                 System.out.println("Server đã kết nối với client: " + socket.getInetAddress().getHostAddress());
             }
+            
             ReadServer readServer = new ReadServer(socket, task, listClient);
             readServer.setEvent(new EventItem(){
                     public void itemRequest( Ticket item, Account acc, int status){
@@ -130,7 +129,6 @@ public class Main extends javax.swing.JFrame {
     }
     
     private void testData(ReadServer readServer) {
-        
         try {
             listTK = readServer.DanhSachVe();
         } catch (SQLException ex) {
@@ -298,14 +296,13 @@ public class Main extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        int port = 1111;    //Change
+        
+        int port = 1111;    // TCP port to allow connection (Inbound Rule in Firewall)
         Main main = new Main(port);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
             public void run() {
-                    main.setVisible(true);
-                    
+                main.setVisible(true);    
             }
         });
         main.excute();

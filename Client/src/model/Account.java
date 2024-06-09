@@ -4,10 +4,7 @@
  */
 package model;
 
-/**
- *
- * @author Pham Duc Loi
- */
+
 public class Account {
     private String userName;
     private String password;

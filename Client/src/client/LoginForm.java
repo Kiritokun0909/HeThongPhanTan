@@ -26,22 +26,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
     }
-        
-//    public List<Ticket> splitData(String s) {
-//        s = s.replace("[", "");
-//        s = s.replace("]",  "");
-////        s = s.trim();
-//        String[] tmp = s.split(", ");
-//        List<Ticket> result = new ArrayList<>();
-//        System.out.println(s);
-//        for(String t : tmp) {
-//            
-//            String[] tmp1 = t.split("");
-//            Ticket t1 = new Ticket(Integer.parseInt(tmp1[0]),Boolean.parseBoolean(tmp1[1]), tmp1[2]);
-//            result.add(t1);
-//        }
-//        return result;
-//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,15 +96,17 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseClicked
         // TODO add your handling code here:
-        String serverAddress = "localhost";
-        int port = 8080; //change
+        String serverAddress = "192.168.0.109"; // IP address of the server to connect
+        int port = 1111; // TCP port to allow connection (Inbound Rule in Firewall)
+        
         String user = txtUsername.getText().trim();
-        String pass =new String( txtPass.getPassword());
+        String pass = new String( txtPass.getPassword());
         
         System.out.println("user : "+ user +", pass : " + pass);
         String s = "login "+ user + " " + pass;
         Account acc = new Account();
         int check = 0; 
+        // Connect to server and try login
         try {
                 Socket socket = new Socket(serverAddress, port);
                  // khởi tạo socketclinet
@@ -135,17 +122,18 @@ public class LoginForm extends javax.swing.JFrame {
         } catch (IOException e) {
             System.err.println("Error connecting to server: " + e.getMessage());
         }
+        // Get list ticket from server
         if (check == 1) {
             acc.setUserName(user);
             String s1 = "";
             try {
                 Socket socket = new Socket(serverAddress, port);
-                 // khởi tạo socketclinet
+                // khởi tạo socketclinet
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 dataOutputStream.writeUTF("xemve");
                 DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-//                System.out.println(dataInputStream.readUTF() +  "  dsadsadasddsfds");
-                s1= dataInputStream.readUTF();
+                // System.out.println(dataInputStream.readUTF() +  "  dsadsadasddsfds");
+                s1 = dataInputStream.readUTF();
 
             } catch (IOException e) {
                 System.err.println("Error connecting to server: " + e.getMessage());
@@ -154,12 +142,6 @@ public class LoginForm extends javax.swing.JFrame {
             Main mainFrom = new Main(s1, serverAddress, port, acc);
 
             mainFrom.show();
-//            try {
-//                Thread.sleep(10000);
-//                } catch (InterruptedException e) {
-//                                            // TODO Auto-generated catch block
-//                   e.printStackTrace();
-//                }
             mainFrom.recall();
             this.hide();
         } else {
