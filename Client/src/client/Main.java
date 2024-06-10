@@ -40,6 +40,7 @@ public class Main extends javax.swing.JFrame {
         this.ipAddress = ipAddress;
         this.port = port;
         this.acc = acc;
+        lbClient.setText("Welcome " + acc.getUserName());
         init();
     }
 
@@ -205,7 +206,7 @@ public class Main extends javax.swing.JFrame {
         mainPanel1 = new swing.MainPanel();
         jSeparator1 = new javax.swing.JSeparator();
         pictureBox1 = new swing.PictureBox();
-        Client = new javax.swing.JLabel();
+        lbClient = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
@@ -231,8 +232,8 @@ public class Main extends javax.swing.JFrame {
 
         pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/image/pngegg.png"))); // NOI18N
 
-        Client.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
-        Client.setText("Client");
+        lbClient.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
+        lbClient.setText("Client");
 
         javax.swing.GroupLayout mainPanel1Layout = new javax.swing.GroupLayout(mainPanel1);
         mainPanel1.setLayout(mainPanel1Layout);
@@ -245,7 +246,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(pictureBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Client, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbClient, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         mainPanel1Layout.setVerticalGroup(
@@ -257,7 +258,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(9, 9, 9))
                     .addGroup(mainPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(Client, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbClient, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
@@ -350,9 +351,9 @@ public class Main extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Client;
     private swing.Background background1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbClient;
     private swing.MainPanel mainPanel;
     private swing.MainPanel mainPanel1;
     private swing.PictureBox pictureBox1;

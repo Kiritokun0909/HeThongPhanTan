@@ -56,12 +56,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbStatus">
           <Properties>
-            <Property name="text" type="java.lang.String" value="time"/>
+            <Property name="text" type="java.lang.String" value="State"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbIP">
           <Properties>
-            <Property name="text" type="java.lang.String" value="time"/>
+            <Property name="text" type="java.lang.String" value="IP"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -72,6 +72,8 @@ public class Item extends javax.swing.JPanel {
             imagePath = imagePath + "chair3.png";
         } else if (check == 3) {
             imagePath = imagePath + "chair2.png";
+        } else {
+            imagePath = imagePath + "chair5.png";
         }
         java.net.URL imageURL = Main.class.getClassLoader().getResource(imagePath);
         imagePath = imageURL.getFile();

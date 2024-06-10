@@ -99,6 +99,12 @@ public class FormHome extends javax.swing.JPanel {
                 if (status == 0 || status == 3) {
                     ((Item) item).setSelected(false);
                     ((Item) item).selectTicket(status);
+                    if (status == 0) {
+                        ((Item) item).setUsername("");
+                    }
+                    else {
+                        ((Item) item).setUsername(acc.getUserName());
+                    }
                     for (int j = 0; j < panelSelect.getComponentCount(); j++) {
                         Component com1 = panelSelect.getComponent(j);
                         ItemList il = (ItemList) com1;
@@ -114,6 +120,7 @@ public class FormHome extends javax.swing.JPanel {
                 } else {
                     ((Item) item).setSelected(true);
                     ((Item) item).selectTicket(status);
+                    ((Item) item).setUsername(acc.getUserName());
                     showItem(tk, acc, status);
                 }
                 panelItem1.revalidate();
@@ -143,6 +150,11 @@ public class FormHome extends javax.swing.JPanel {
             ItemList item = (ItemList) panelSelect.getComponent(i);
             if (item.getId() == id && item.getUserName().equals(username2)) {
                 item.setStatus(1);
+                for (Component comItem : panelItem1.getComponents()) {
+                    if (((Item) comItem).getTicket().getId() == item.getId()) {
+                        ((Item) comItem).setUsername(username2);
+                    }
+                }
                 break;
             }
         }
@@ -228,15 +240,19 @@ public class FormHome extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-            .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(scroll)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

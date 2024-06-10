@@ -100,7 +100,7 @@
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Component id="pictureBox1" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Client" min="-2" pref="173" max="-2" attributes="0"/>
+                      <Component id="lbClient" min="-2" pref="599" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -115,7 +115,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="Client" min="-2" pref="57" max="-2" attributes="0"/>
+                              <Component id="lbClient" min="-2" pref="57" max="-2" attributes="0"/>
                               <EmptySpace pref="28" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -139,7 +139,7 @@
                 <Property name="useNullLayout" type="boolean" value="true"/>
               </Layout>
             </Container>
-            <Component class="javax.swing.JLabel" name="Client">
+            <Component class="javax.swing.JLabel" name="lbClient">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="36" style="3"/>

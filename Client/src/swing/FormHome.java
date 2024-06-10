@@ -30,7 +30,7 @@ public class FormHome extends javax.swing.JPanel {
     }
     private int count = 0;
     private boolean running = false;
-    private int timeCountDown = 60;
+    private int timeCountDown = 10;
     private int countWait = 0;
     private EventItem event;
     private int demV = 0;
@@ -59,7 +59,7 @@ public class FormHome extends javax.swing.JPanel {
             });
         } else {
             if (tk.getUserName().equals(username)) {
-                item.selectTicket(1);
+                item.selectTicket(5);
                 demV ++;
             } else {
                 item.selectTicket(3);
@@ -363,6 +363,11 @@ public class FormHome extends javax.swing.JPanel {
                 btnMuaMouseClicked(evt);
             }
         });
+        btnMua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMuaActionPerformed(evt);
+            }
+        });
 
         scroll1.setViewportView(panelSelect);
 
@@ -400,15 +405,19 @@ public class FormHome extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-            .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -427,14 +436,14 @@ public class FormHome extends javax.swing.JPanel {
             ItemList tmp = (ItemList) panelSelect.getComponent(0);
             this.event.buyTicket(tmp.getId());
             result += String.valueOf(tmp.getId());
-            if (i  != 1) {
+            if (i != 1) {
                 result += ", ";
             }
             for (int j = 0; j < panelItem1.getComponentCount(); j++) {
                 Item tmp1 = (Item) panelItem1.getComponent(j);
                 if (tmp1.getTicket().getId() == tmp.getId()) {
                     MouseListener[] mouseListeners = tmp1.getMouseListeners();
-                    
+                    tmp1.selectTicket(5);
                     // Loại bỏ toàn bộ MouseListener
                     for (MouseListener listener : mouseListeners) {
                         tmp1.removeMouseListener(listener);
@@ -475,6 +484,10 @@ public class FormHome extends javax.swing.JPanel {
         panelSelect.repaint();
         count = panelSelect.getComponentCount();
     }//GEN-LAST:event_btnHuyMouseClicked
+
+    private void btnMuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMuaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

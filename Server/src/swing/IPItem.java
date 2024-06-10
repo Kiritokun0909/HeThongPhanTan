@@ -50,9 +50,9 @@ public class IPItem extends javax.swing.JPanel {
         lbStatus = new javax.swing.JLabel();
         lbIP = new javax.swing.JLabel();
 
-        lbStatus.setText("time");
+        lbStatus.setText("State");
 
-        lbIP.setText("time");
+        lbIP.setText("IP");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
